@@ -14,6 +14,7 @@ extend(THREE as never)
 
 export default function App() {
   const compassNeedleRef = useRef<HTMLDivElement>(null)
+  const compassAngleRef = useRef<HTMLSpanElement>(null)
 
   return (
     <>
@@ -53,11 +54,11 @@ export default function App() {
 
         <CameraControls makeDefault />
 
-        <CompassTracker needleRef={compassNeedleRef} />
+        <CompassTracker needleRef={compassNeedleRef} angleRef={compassAngleRef} />
       </Canvas>
 
       <div className="hud">drag to orbit, scroll to zoom</div>
-      <CompassDial needleRef={compassNeedleRef} />
+      <CompassDial needleRef={compassNeedleRef} angleRef={compassAngleRef} />
     </>
   )
 }
