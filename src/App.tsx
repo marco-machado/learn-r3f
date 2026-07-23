@@ -53,7 +53,7 @@ export default function App() {
           <Lightformer form="rect" intensity={1} color="#ffb98f" position={[5, 3, 3]} scale={[6, 6]} target={[0, 0, 0]} />
         </Environment>
 
-        <Agent position={[0, 0, 0]} />
+        <Agent position={[0, 0, 0]} proceduralIdle />
 
         <mesh rotation-x={-Math.PI / 2} receiveShadow>
           <planeGeometry args={[20, 20]} />

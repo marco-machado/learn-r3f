@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
-import type { Group } from 'three'
+import type { Bone, Group } from 'three'
+import { ProceduralIdleSway } from './ProceduralIdleSway'
 
 // agent.glb (Tripo-generated):
 // - 1 scene, 54 nodes — a full skeletal rig (pelvis/spine/head, twin arms/legs with twist bones, hands, feet)
@@ -19,11 +20,17 @@ type AgentProps = {
   position?: [number, number, number]
   scale?: number | [number, number, number]
   animationIndex?: number
+  proceduralIdle?: boolean
 }
 
-export function Agent({ position = [0, 0, 0], scale = DEFAULT_SCALE, animationIndex }: AgentProps) {
+export function Agent({
+  position = [0, 0, 0],
+  scale = DEFAULT_SCALE,
+  animationIndex,
+  proceduralIdle = false,
+}: AgentProps) {
   const group = useRef<Group>(null!)
-  const { scene, animations } = useGLTF('/models/agent.glb')
+  const { scene, animations, nodes } = useGLTF('/models/agent.glb')
   const { actions } = useAnimations(animations, group)
 
   useEffect(() => {
@@ -36,7 +43,14 @@ export function Agent({ position = [0, 0, 0], scale = DEFAULT_SCALE, animationIn
     }
   }, [actions, animations, animationIndex])
 
-  return <primitive ref={group} object={scene} position={position} scale={scale} />
+  return (
+    <>
+      <primitive ref={group} object={scene} position={position} scale={scale} />
+      {proceduralIdle && (
+        <ProceduralIdleSway head={nodes.Head as Bone} pelvis={nodes.Pelvis as Bone} />
+      )}
+    </>
+  )
 }
 
 useGLTF.preload('/models/agent.glb')
