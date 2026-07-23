@@ -1,6 +1,5 @@
 import { Canvas } from '@react-three/fiber'
 import { ContactShadows, Grid, OrbitControls } from '@react-three/drei'
-import { SpinningBox } from './components/SpinningBox'
 
 export default function App() {
   return (
@@ -20,9 +19,6 @@ export default function App() {
           castShadow
           shadow-mapSize={[2048, 2048]}
         />
-
-        <SpinningBox position={[-1.6, 0.75, 0]} color="#f97316" />
-        <SpinningBox position={[1.6, 0.75, 0]} color="#38bdf8" />
 
         <ContactShadows
           position={[0, 0.01, 0]}
@@ -44,7 +40,7 @@ export default function App() {
         <OrbitControls makeDefault />
       </Canvas>
 
-      <div className="hud">drag to orbit, scroll to zoom, click a cube</div>
+      <div className="hud">drag to orbit, scroll to zoom</div>
     </>
   )
 }
