@@ -30,7 +30,7 @@ export default function App() {
       <Canvas
         shadows="percentage"
         dpr={[1, 2]}
-        camera={{ position: [4, 3, 6], fov: 50 }}
+        camera={{ position: [0, 3, 6], fov: 50 }}
         gl={async (props) => {
           const renderer = new THREE.WebGPURenderer(props as never)
           await renderer.init()
