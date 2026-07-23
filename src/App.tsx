@@ -5,6 +5,7 @@ import type { ThreeToJSXElements } from '@react-three/fiber'
 import { CameraControls, Environment, Lightformer } from '@react-three/drei'
 import { Agent } from './components/Agent'
 import { CompassDial, CompassTracker } from './components/Compass'
+import { CameraStatsPanel, CameraStatsTracker } from './components/CameraStats'
 
 declare module '@react-three/fiber' {
   interface ThreeElements extends ThreeToJSXElements<typeof THREE> {}
@@ -15,6 +16,13 @@ extend(THREE as never)
 export default function App() {
   const compassNeedleRef = useRef<HTMLDivElement>(null)
   const compassAngleRef = useRef<HTMLSpanElement>(null)
+  const cameraStatsRefs = {
+    x: useRef<HTMLSpanElement>(null),
+    y: useRef<HTMLSpanElement>(null),
+    z: useRef<HTMLSpanElement>(null),
+    distance: useRef<HTMLSpanElement>(null),
+    fov: useRef<HTMLSpanElement>(null),
+  }
 
   return (
     <>
@@ -52,13 +60,15 @@ export default function App() {
           <meshStandardMaterial color="#1b1b22" roughness={0.9} />
         </mesh>
 
-        <CameraControls makeDefault />
+        <CameraControls makeDefault minDistance={2} maxDistance={15} />
 
         <CompassTracker needleRef={compassNeedleRef} angleRef={compassAngleRef} />
+        <CameraStatsTracker {...cameraStatsRefs} />
       </Canvas>
 
       <div className="hud">drag to orbit, scroll to zoom</div>
       <CompassDial needleRef={compassNeedleRef} angleRef={compassAngleRef} />
+      <CameraStatsPanel {...cameraStatsRefs} />
     </>
   )
 }

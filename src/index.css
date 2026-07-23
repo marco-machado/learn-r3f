@@ -100,3 +100,19 @@ canvas {
   border-bottom: 7px solid rgba(255, 255, 255, 0.8);
   transform: translateX(-50%);
 }
+
+.camera-stats {
+  position: fixed;
+  top: 96px;
+  right: 20px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  line-height: 1.6;
+  text-align: right;
+  pointer-events: none;
+  user-select: none;
+}
