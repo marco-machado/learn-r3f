@@ -9,7 +9,6 @@ import type { Group } from 'three'
 // - 5 animations — named generically NlaTrack, NlaTrack.001...004 (Blender's default NLA-track
 //   export names, so they weren't renamed to something descriptive like "Walk"/"Idle").
 //   By clip index: 0 look_around, 1 frustrated_01 (broken — visually incorrect), 2 idle, 3 walk, 4 greet_03.
-const IDLE_ANIMATION_INDEX = 2
 
 // World units represent meters. The model's native height is ~1m; this scales it to a 1.8m adult.
 const NATIVE_HEIGHT_METERS = 0.9997561909258366
@@ -22,16 +21,13 @@ type AgentProps = {
   animationIndex?: number
 }
 
-export function Agent({
-  position = [0, 0, 0],
-  scale = DEFAULT_SCALE,
-  animationIndex = IDLE_ANIMATION_INDEX,
-}: AgentProps) {
+export function Agent({ position = [0, 0, 0], scale = DEFAULT_SCALE, animationIndex }: AgentProps) {
   const group = useRef<Group>(null!)
   const { scene, animations } = useGLTF('/models/agent.glb')
   const { actions } = useAnimations(animations, group)
 
   useEffect(() => {
+    if (animationIndex === undefined) return
     const name = animations[animationIndex]?.name
     const action = name ? actions[name] : undefined
     action?.reset().fadeIn(0.2).play()
