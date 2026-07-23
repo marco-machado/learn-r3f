@@ -1,7 +1,7 @@
 import * as THREE from 'three/webgpu'
 import { Canvas, extend } from '@react-three/fiber'
 import type { ThreeToJSXElements } from '@react-three/fiber'
-import { Environment, Lightformer, OrbitControls } from '@react-three/drei'
+import { CameraControls, Environment, Lightformer } from '@react-three/drei'
 import { Agent } from './components/Agent'
 
 declare module '@react-three/fiber' {
@@ -47,7 +47,7 @@ export default function App() {
           <meshStandardMaterial color="#1b1b22" roughness={0.9} />
         </mesh>
 
-        <OrbitControls makeDefault />
+        <CameraControls makeDefault />
       </Canvas>
 
       <div className="hud">drag to orbit, scroll to zoom</div>
