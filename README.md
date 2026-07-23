@@ -8,7 +8,7 @@ A React Three Fiber playground: Vite + React 19 + TypeScript, with `three`, `@re
 npm run dev      # dev server at http://localhost:5173
 npm run build    # type-check, then production build to dist/
 npm run preview  # serve the production build
-npm run lint     # oxlint
+npm run lint     # eslint
 ```
 
 ## Layout

@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run dev      # dev server at http://localhost:5173
 npm run build    # type-check (tsc -b), then production build to dist/
 npm run preview  # serve the production build
-npm run lint      # oxlint
+npm run lint      # eslint
 ```
 
 No test suite exists in this project.
