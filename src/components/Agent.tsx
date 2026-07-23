@@ -11,12 +11,22 @@ import type { Group } from 'three'
 //   By clip index: 0 look_around, 1 frustrated_01 (broken — visually incorrect), 2 idle, 3 walk, 4 greet_03.
 const IDLE_ANIMATION_INDEX = 2
 
+// World units represent meters. The model's native height is ~1m; this scales it to a 1.8m adult.
+const NATIVE_HEIGHT_METERS = 0.9997561909258366
+const TARGET_HEIGHT_METERS = 1.8
+const DEFAULT_SCALE = TARGET_HEIGHT_METERS / NATIVE_HEIGHT_METERS
+
 type AgentProps = {
   position?: [number, number, number]
+  scale?: number | [number, number, number]
   animationIndex?: number
 }
 
-export function Agent({ position = [0, 0, 0], animationIndex = IDLE_ANIMATION_INDEX }: AgentProps) {
+export function Agent({
+  position = [0, 0, 0],
+  scale = DEFAULT_SCALE,
+  animationIndex = IDLE_ANIMATION_INDEX,
+}: AgentProps) {
   const group = useRef<Group>(null!)
   const { scene, animations } = useGLTF('/models/agent.glb')
   const { actions } = useAnimations(animations, group)
@@ -30,7 +40,7 @@ export function Agent({ position = [0, 0, 0], animationIndex = IDLE_ANIMATION_IN
     }
   }, [actions, animations, animationIndex])
 
-  return <primitive ref={group} object={scene} position={position} />
+  return <primitive ref={group} object={scene} position={position} scale={scale} />
 }
 
 useGLTF.preload('/models/agent.glb')
