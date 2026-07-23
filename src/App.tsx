@@ -1,8 +1,10 @@
+import { useRef } from 'react'
 import * as THREE from 'three/webgpu'
 import { Canvas, extend } from '@react-three/fiber'
 import type { ThreeToJSXElements } from '@react-three/fiber'
 import { CameraControls, Environment, Lightformer } from '@react-three/drei'
 import { Agent } from './components/Agent'
+import { CompassDial, CompassTracker } from './components/Compass'
 
 declare module '@react-three/fiber' {
   interface ThreeElements extends ThreeToJSXElements<typeof THREE> {}
@@ -11,6 +13,8 @@ declare module '@react-three/fiber' {
 extend(THREE as never)
 
 export default function App() {
+  const compassNeedleRef = useRef<HTMLDivElement>(null)
+
   return (
     <>
       {/* "percentage" = PCF shadows; three 185 deprecated the PCFSoft default. */}
@@ -48,9 +52,12 @@ export default function App() {
         </mesh>
 
         <CameraControls makeDefault />
+
+        <CompassTracker needleRef={compassNeedleRef} />
       </Canvas>
 
       <div className="hud">drag to orbit, scroll to zoom</div>
+      <CompassDial needleRef={compassNeedleRef} />
     </>
   )
 }
