@@ -1,5 +1,13 @@
-import { Canvas } from '@react-three/fiber'
-import { ContactShadows, Grid, OrbitControls } from '@react-three/drei'
+import * as THREE from 'three/webgpu'
+import { Canvas, extend } from '@react-three/fiber'
+import type { ThreeToJSXElements } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
+
+declare module '@react-three/fiber' {
+  interface ThreeElements extends ThreeToJSXElements<typeof THREE> {}
+}
+
+extend(THREE as never)
 
 export default function App() {
   return (
@@ -9,6 +17,11 @@ export default function App() {
         shadows="percentage"
         dpr={[1, 2]}
         camera={{ position: [4, 3, 6], fov: 50 }}
+        gl={async (props) => {
+          const renderer = new THREE.WebGPURenderer(props as never)
+          await renderer.init()
+          return renderer
+        }}
       >
         <color attach="background" args={['#101014']} />
 
@@ -18,23 +31,6 @@ export default function App() {
           intensity={2.5}
           castShadow
           shadow-mapSize={[2048, 2048]}
-        />
-
-        <ContactShadows
-          position={[0, 0.01, 0]}
-          opacity={0.55}
-          scale={14}
-          blur={2.4}
-          far={5}
-        />
-        <Grid
-          infiniteGrid
-          cellSize={0.5}
-          sectionSize={2.5}
-          cellColor="#2a2a33"
-          sectionColor="#3f3f4d"
-          fadeDistance={28}
-          fadeStrength={1.5}
         />
 
         <OrbitControls makeDefault />
