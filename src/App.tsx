@@ -2,6 +2,7 @@ import * as THREE from 'three/webgpu'
 import { Canvas, extend } from '@react-three/fiber'
 import type { ThreeToJSXElements } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
+import { Agent } from './components/Agent'
 
 declare module '@react-three/fiber' {
   interface ThreeElements extends ThreeToJSXElements<typeof THREE> {}
@@ -32,6 +33,13 @@ export default function App() {
           castShadow
           shadow-mapSize={[2048, 2048]}
         />
+
+        <Agent position={[0, 0, 0]} />
+
+        <mesh rotation-x={-Math.PI / 2} receiveShadow>
+          <planeGeometry args={[20, 20]} />
+          <meshStandardMaterial color="#1b1b22" roughness={0.9} />
+        </mesh>
 
         <OrbitControls makeDefault />
       </Canvas>
